@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export PGPASSWORD=changeme
+psql $1 -U postgres -d postgres -h localhost -p 25432

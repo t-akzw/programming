@@ -1,0 +1,1 @@
+\copy poptbl2 from ./poptbl2.csv with csv;
