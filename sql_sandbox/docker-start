@@ -1,5 +1,2 @@
 #!/bin/sh
-
-export PG_PORT=25432
-export PGADMIN_PORT=20080
-docker-compose up -d
+docker-compose up -d --build
