@@ -68,4 +68,4 @@ int main() {
     cout << max_l_idx+1;
   }
   return 0;
-}:w
+}
