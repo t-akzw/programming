@@ -28,7 +28,20 @@ void sample_solve();
 // Main Logic
 // =================================
 void solve() {
-
+  int n, m;
+  int b, c;
+  cin >> n >> m;
+  V a(n);
+  rep(i, n) cin >> a.at(i);
+  // rbfor(v, a) cout << v << endl;
+  sort(a.begin(), a.end());
+  rbfor(v, a) cout << v << endl;
+  rep(i, m) {
+    cin >> b >> c;
+    V tmp(b, c);
+    copy(a.begin(), a.end(), back_inserter(tmp));
+  }
+  rbfor(v, a) cout << v << endl;
 }
 // =================================
 
@@ -36,10 +49,12 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
   std::cout << std::fixed << std::setprecision(15);
-  // solve();
-  sample_solve();
+  solve();
+  //sample_solve();
   return 0;
 }
+
+//////////////////////////////////////////////////////////////
 
 // ---------------
 // https://atcoder.jp/contests/apg4b/tasks_print

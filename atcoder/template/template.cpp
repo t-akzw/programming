@@ -66,6 +66,8 @@ void sample_solve() {
   sort(vi.begin(), vi.end());
   rbfor(v, vi) cout << v << endl;
 
+  //insert: a.insert(a.end(), tmp.begin(), tmp.end()); vectorの結合
+
   cout << "-- graph" << endl;
   Graph g(3, vector<ll>(4, 10));
   g.at(2).at(2) = 1;
