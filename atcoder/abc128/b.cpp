@@ -27,24 +27,6 @@ void sample_solve();
 // =================================
 // Main Logic
 // =================================
-void solve() {
-
-}
-// =================================
-
-int main() {
-  std::cin.tie(nullptr);
-  std::ios_base::sync_with_stdio(false);
-  std::cout << std::fixed << std::setprecision(15);
-  // solve();
-  sample_solve();
-  return 0;
-}
-
-// ---------------
-// https://atcoder.jp/contests/apg4b/tasks_print
-// ---------------
-
 typedef tuple<string, int ,int> TUPLE;
 bool comp(TUPLE lhs, TUPLE rhs) {
   if (get<0>(lhs) == get<0>(rhs)) {
@@ -53,6 +35,36 @@ bool comp(TUPLE lhs, TUPLE rhs) {
     return get<0>(lhs) < get<0>(rhs);
   }
 }
+
+void solve() {
+  vector<tuple<string, int, int>> vt;
+  int n;
+  cin >> n;
+  rep(i, n) {
+    string s;
+    int p;
+    cin >> s >> p;
+    vt.push_back(make_tuple(s, p, i+1));
+  }
+  sort(vt.begin(), vt.end(), comp);
+
+  rep(i, n) cout << get<0>(vt.at(i)) << ":" << get<1>(vt.at(i)) << ":" << get<2>(vt.at(i)) << endl;
+  // rep(i, n) cout << get<2>(vt.at(i)) << endl;
+}
+// =================================
+
+int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+  std::cout << std::fixed << std::setprecision(15);
+  solve();
+  // sample_solve();
+  return 0;
+}
+
+// ---------------
+// https://atcoder.jp/contests/apg4b/tasks_print
+// ---------------
 
 void sample_solve() {
   // basic usage
@@ -198,19 +210,6 @@ void sample_solve() {
   };
   cout << update_max(5) << endl;
   cout << update_max(2) << endl;
-
-  // 比較関数の例: tuple 0で辞書順ソート、1で降順ソート
-  cout << "-- comp of tuple" << endl;
-  vector<TUPLE> vt;
-  vt.push_back(make_tuple("khabarovsk", 20, 1));
-  vt.push_back(make_tuple("moscow", 10, 2));
-  vt.push_back(make_tuple("kazan", 50, 3));
-  vt.push_back(make_tuple("kazan", 35, 4));
-  vt.push_back(make_tuple("moscow", 60, 5));
-  vt.push_back(make_tuple("khabarovsk", 40, 6));
-  sort(vt.begin(), vt.end(), comp);
-
-  rep(i, 6) cout << get<0>(vt.at(i)) << ":" << get<1>(vt.at(i)) << ":" << get<2>(vt.at(i)) << endl;
 }
 
 // -- info
@@ -220,4 +219,3 @@ void sample_solve() {
 // find(iter1, iter2, num)
 // lower_bound(iter1, iter2, num): イテレータの範囲内から指定した値以上の最小の要素を探す
 // upper_bound(iter1, iter2, num): イテレータの範囲内から指定した値より大きな最小の要素を探す
-

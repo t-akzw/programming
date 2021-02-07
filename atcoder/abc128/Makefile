@@ -13,8 +13,6 @@ e:
 	$(CC) -o e.out $(CFLAGS) e.cpp
 f: 
 	$(CC) -o f.out $(CFLAGS) f.cpp
-template:
-	$(CC) -o template.out $(CFLAGS) template.cpp
 cpa:
 	cp template.cpp a.cpp
 cpb:
@@ -39,7 +37,5 @@ exe:
 	./e.out
 exf:
 	./f.out
-ext:
-	./template.out
 clean:
 	$(RM) *.out
