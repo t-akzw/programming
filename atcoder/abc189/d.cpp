@@ -29,7 +29,22 @@ int gcd(ll m, ll n);
 // Main Logic
 // =================================
 void solve() {
-
+  int n;
+  cin >> n;
+  string s;
+  int num = n + 1;
+  vector<vector<ll>> dp(num, vector<ll>(2, 1));
+  rep(i, n) {
+    cin >> s;
+    if (s == "AND") {
+      dp[i+1][1] = dp[i][1];
+      dp[i+1][0] = 2*dp[i][0] + dp[i][1];
+    } else {
+      dp[i+1][1] = 2*dp[i][1] + dp[i][0];
+      dp[i+1][0] = dp[i][0];
+    }
+  }
+  cout << dp[n][1] << endl;
 }
 // =================================
 
@@ -37,8 +52,8 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
   std::cout << std::fixed << std::setprecision(15);
-  // solve();
-  sample_solve();
+  solve();
+  // sample_solve();
   return 0;
 }
 

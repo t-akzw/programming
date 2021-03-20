@@ -29,7 +29,12 @@ int gcd(ll m, ll n);
 // Main Logic
 // =================================
 void solve() {
-
+  string ans = "Won";
+  char c1, c2, c3;
+  scanf("%c%c%c", &c1, &c2, &c3);
+  if (c1 - c2 != 0) ans = "Lost";
+  if (c1 - c3 != 0) ans = "Lost";
+  cout << ans << endl;
 }
 // =================================
 
@@ -37,8 +42,8 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
   std::cout << std::fixed << std::setprecision(15);
-  // solve();
-  sample_solve();
+  solve();
+  // sample_solve();
   return 0;
 }
 

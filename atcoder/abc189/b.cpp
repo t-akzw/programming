@@ -29,7 +29,22 @@ int gcd(ll m, ll n);
 // Main Logic
 // =================================
 void solve() {
-
+  int n;
+  double x, v, p;
+  cin >> n >> x;
+  double tmp = 0;
+  int ans = -1;
+  rep(i, n) {
+    cin >> v >> p;
+    // cout << v << ":" << p << endl;
+    tmp += v * p;
+    // cout << tmp << "--" << endl;
+    if (tmp > x*100) {
+      ans = i+1;
+      break;
+    }
+  }
+  cout << ans << endl;
 }
 // =================================
 
@@ -37,8 +52,8 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
   std::cout << std::fixed << std::setprecision(15);
-  // solve();
-  sample_solve();
+  solve();
+  // sample_solve();
   return 0;
 }
 

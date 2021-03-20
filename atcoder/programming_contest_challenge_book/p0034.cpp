@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <fstream>
 
 using namespace std;
 
@@ -24,21 +25,47 @@ template<typename T> bool chmin(T &a, const T &b) {if (a > b){a = b;return true;
 
 void sample_solve();
 int gcd(ll m, ll n);
+bool dfs(int i, int s);
+vector<int> a;
+int k;
+int n;
 
 // =================================
 // Main Logic
 // =================================
 void solve() {
+  int tmp;
+  int sum = 0;
+  cin >> n;
+  rep(i, n) {
+    cin >> tmp;
+    a.push_back(tmp);
+  }
+  cin >> k;
+  // cout << k << endl;
 
+  if( dfs(0, 0) ) cout << "Yes" << endl;
+  else cout << "No" << endl;
 }
+
+bool dfs(int i, int s) {
+  if (i == n) s == k;
+  if ( dfs(i-1, s) ) return true;
+  if ( dfs(i-1, s+a.at(i)) ) return true;
+  return false;
+}
+
 // =================================
 
 int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
   std::cout << std::fixed << std::setprecision(15);
-  // solve();
-  sample_solve();
+
+  ifstream in("input.txt");
+  cin.rdbuf(in.rdbuf());
+  solve();
+  // sample_solve();
   return 0;
 }
 

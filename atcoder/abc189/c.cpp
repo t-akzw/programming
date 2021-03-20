@@ -23,12 +23,29 @@ template<typename T> bool chmax(T &a, const T &b) {if (a < b){a = b;return true;
 template<typename T> bool chmin(T &a, const T &b) {if (a > b){a = b;return true;}else{return false;}}
 
 void sample_solve();
+int gcd(ll m, ll n);
 
 // =================================
 // Main Logic
 // =================================
 void solve() {
-
+  int n;
+  cin >> n;
+  V a(n);
+  rep(i, n) cin >> a.at(i);
+  ll min = 0;
+  ll eat_num = 0;
+  rep(i, n) {
+    min = a.at(i);
+    ll tmp_eat_num = 0;
+    for(ll j=i;j<(ll)(n);j++) {
+      if (a.at(j) < min) min = a.at(j);
+      tmp_eat_num = (j - i + 1) * min;
+      if (eat_num < tmp_eat_num) eat_num = tmp_eat_num;
+      // cout << "i: " << i << ", j: " << j << ", min: " << min << ", tmp_eat_num:" << tmp_eat_num << ", eat_num: " << eat_num << endl;
+    }
+  }
+  cout << eat_num << endl;
 }
 // =================================
 
@@ -36,14 +53,23 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
   std::cout << std::fixed << std::setprecision(15);
-  // solve();
-  sample_solve();
+  solve();
+  // sample_solve();
   return 0;
 }
 
 // ---------------
 // https://atcoder.jp/contests/apg4b/tasks_print
 // ---------------
+
+typedef tuple<string, int ,int> TUPLE;
+bool comp(TUPLE lhs, TUPLE rhs) {
+  if (get<0>(lhs) == get<0>(rhs)) {
+    return get<1>(lhs) > get<1>(rhs);
+  } else {
+    return get<0>(lhs) < get<0>(rhs);
+  }
+}
 
 void sample_solve() {
   // basic usage
@@ -66,7 +92,7 @@ void sample_solve() {
   sort(vi.begin(), vi.end());
   rbfor(v, vi) cout << v << endl;
 
-  // .insert, vi.insert(vi.end(), vi2.begin(), vi2.end()); // vectorの結合
+  //insert: a.insert(a.end(), tmp.begin(), tmp.end()); vectorの結合
 
   cout << "-- graph" << endl;
   Graph g(3, vector<ll>(4, 10));
@@ -189,6 +215,24 @@ void sample_solve() {
   };
   cout << update_max(5) << endl;
   cout << update_max(2) << endl;
+
+  // 比較関数の例: tuple 0で辞書順ソート、1で降順ソート
+  cout << "-- comp of tuple" << endl;
+  vector<TUPLE> vt;
+  vt.push_back(make_tuple("khabarovsk", 20, 1));
+  vt.push_back(make_tuple("moscow", 10, 2));
+  vt.push_back(make_tuple("kazan", 50, 3));
+  vt.push_back(make_tuple("kazan", 35, 4));
+  vt.push_back(make_tuple("moscow", 60, 5));
+  vt.push_back(make_tuple("khabarovsk", 40, 6));
+  sort(vt.begin(), vt.end(), comp);
+
+  rep(i, 6) cout << get<0>(vt.at(i)) << ":" << get<1>(vt.at(i)) << ":" << get<2>(vt.at(i)) << endl;
+
+  // lib sample
+  cout << "-- mylib: gcd" << endl;
+  cout << gcd(51, 15) << endl;
+  cout << gcd(15, 51) << endl;
 }
 
 // -- info
@@ -198,3 +242,10 @@ void sample_solve() {
 // find(iter1, iter2, num)
 // lower_bound(iter1, iter2, num): イテレータの範囲内から指定した値以上の最小の要素を探す
 // upper_bound(iter1, iter2, num): イテレータの範囲内から指定した値より大きな最小の要素を探す
+
+// mylibs
+
+int gcd(ll m, ll n) {
+  if (n == 0) return m;
+  return gcd(n, m%n);
+}

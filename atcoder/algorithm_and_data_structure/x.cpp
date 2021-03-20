@@ -27,8 +27,15 @@ void sample_solve();
 // =================================
 // Main Logic
 // =================================
+int gcd(int m, int n) {
+  cout << m << ":" << n << endl;
+  if (n == 0) return m;
+  cout << "m%n: " << m << ":" << n << ":" << m%n << endl;
+  return gcd(n, m%n);
+}
 void solve() {
-
+  cout << gcd(51, 15) << endl;
+  cout << gcd(15, 51) << endl;
 }
 // =================================
 
@@ -36,8 +43,8 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
   std::cout << std::fixed << std::setprecision(15);
-  // solve();
-  sample_solve();
+  solve();
+  // sample_solve();
   return 0;
 }
 
