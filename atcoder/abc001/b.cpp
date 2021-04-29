@@ -51,9 +51,22 @@ void solve() {
   // normal
   // int a, b;
   // cin >> a >> b;
-  int h1, h2;
-  cin >> h1 >> h2;
-  cout << h1 - h2 << endl;
+  int m;
+  string vv = "";
+  cin >> m;
+  if (m < 100) {
+    vv = "00";
+  } else if (100 <= m && m <= 5000) {
+    if (m < 1000) vv = "0";
+    vv += to_string(m*10/1000);
+  } else if (6000 <=m && m <= 30000) {
+    vv = to_string(m/1000+50);
+  } else if (35000 <= m && m <= 70000) {
+    vv = to_string( ((m/1000-30)/5)+80 );
+  } else if (70000 < m) {
+    vv = "89";
+  }
+  cout << vv << endl;
 }
 // =================================
 
@@ -249,10 +262,6 @@ void sample_solve() {
 // upper_bound(iter1, iter2, num): イテレータの範囲内から指定した値より大きな最小の要素を探す
 
 // mylibs
-
-// 変換
-// 数値から文字列
-cout << to_string(123) << endl;
 
 int gcd(ll m, ll n) {
   if (n == 0) return m;
