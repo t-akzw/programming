@@ -6,7 +6,7 @@ AUTOMATION_PATH='../automation'
 
 ./scraping.sh
 
-cp ${AUTOMATION_PATH}/app/*_example_*.txt .
+mv ${AUTOMATION_PATH}/app/*_example_*.txt .
 
 for i in $(ls -1 *_example_*.txt)
 do
