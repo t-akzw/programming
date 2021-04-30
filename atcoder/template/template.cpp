@@ -19,16 +19,38 @@ using Graph = vector< vector<ll> >;
 
 const ll MOD = 1000000007;
 const ll INF = 1000000000000000000L;
+const int INFI = 1000000000;
 template<typename T> bool chmax(T &a, const T &b) {if (a < b){a = b;return true;}else{return false;}}
 template<typename T> bool chmin(T &a, const T &b) {if (a > b){a = b;return true;}else{return false;}}
 
+// for dfs
+string s[505];
+bool used[505][505];
+int d[505][505];
+
+const int di[] = {-1,0,1,0}, dj[] = {0,-1,0,1};
+
 void sample_solve();
 int gcd(ll m, ll n);
+bool dfs(int i, int j);
+void bfs();
 
 // =================================
 // Main Logic
 // =================================
 void solve() {
+  // for dfs
+  //   rep(i,h) cin >> s[i];
+  //   rep(i,h)rep(j,w) if(s[i][j]=='s') res = dfs(i,j);
+  // for bfs
+  //   rep(i, r) rep(j, c) used[i][j] = -1000;
+  //   d[sx][sy] = 0;
+  //   q.push(make_pair(sx, sy));
+  //   while (!q.empty()) bfs();
+
+  // normal
+  // int a, b;
+  // cin >> a >> b;
 
 }
 // =================================
@@ -37,10 +59,42 @@ int main() {
   std::cin.tie(nullptr);
   std::ios_base::sync_with_stdio(false);
   std::cout << std::fixed << std::setprecision(15);
-  // solve();
-  sample_solve();
+  solve();
+  // sample_solve();
   return 0;
 }
+
+/*
+bool dfs(int i, int j) {
+  if (used[i][j]) return false;
+  used[i][j] = true;
+  if (s[i][j] == '#') return false;
+  if (s[i][j] == 'g') return true;
+  bool res = false;
+  rep(v,4) {
+    int ni = i+di[v], nj = j+dj[v];
+    if (ni<0||nj<0||ni>=h||nj>=w) continue;
+    res |= dfs(ni,nj);
+  }
+  return res;
+};
+
+void bfs() {
+  pair<int, int> f = q.front();
+  q.pop();
+  int x = f.first;
+  int y = f.second;
+
+  rep(v, 4) {
+    int ni = x+di[v], nj = y+dj[v];
+    if (ni<0||nj<0||ni>=r||nj>=c) continue;
+    if (s[ni][nj] == '#') continue;
+    if (d[ni][nj] != INFI) continue;
+    d[ni][nj] = d[x][y] + 1;
+    q.push(make_pair(ni, nj));
+  }
+};
+*/
 
 // ---------------
 // https://atcoder.jp/contests/apg4b/tasks_print
@@ -217,6 +271,9 @@ void sample_solve() {
   cout << "-- mylib: gcd" << endl;
   cout << gcd(51, 15) << endl;
   cout << gcd(15, 51) << endl;
+
+  // to_**
+  cout << to_string(123) << endl;
 }
 
 // -- info
@@ -228,6 +285,7 @@ void sample_solve() {
 // upper_bound(iter1, iter2, num): イテレータの範囲内から指定した値より大きな最小の要素を探す
 
 // mylibs
+
 
 int gcd(ll m, ll n) {
   if (n == 0) return m;

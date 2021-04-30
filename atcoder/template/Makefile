@@ -28,17 +28,17 @@ cpe:
 cpf:
 	cp template.cpp f.cpp
 exa:
-	./a.out
+	./exec.sh a
 exb:
-	./b.out
+	./exec.sh b
 exc:
-	./c.out
+	./exec.sh c
 exd:
-	./d.out
+	./exec.sh d
 exe:
-	./e.out
+	./exec.sh e
 exf:
-	./f.out
+	./exec.sh f
 ext:
 	./template.out
 clean:
