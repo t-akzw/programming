@@ -1,0 +1,1 @@
+docker exec -it automation_atcoder_automation_1 bash
