@@ -44,7 +44,25 @@ void bfs();
 // =================================
 void solve() {
   int ans = 0;
-  cout << ans << endl;
+  int n, m;
+  cin >> n >> m;
+  vector<int> broken(n+1);
+  
+  rep(i,m) {
+    int a;
+    cin >> a;
+    broken[a] = 1;
+  }
+  vector<int> dp(n+2);
+  dp[n] = 1;
+  rrep(i, n-1, 0) {
+    if (broken[i]) {
+      dp[i] = 0;
+      continue;
+    }
+    dp[i] = (dp[i+1] + dp[i+2]) % MOD;
+  }
+  cout << dp[0] << endl;
 }
 // =================================
 
