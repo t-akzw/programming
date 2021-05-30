@@ -11,6 +11,7 @@ using Q = queue<ll>;
 using PQ = priority_queue<ll>;
 using ST = stack<ll>;
 using Graph = vector< vector<ll> >;
+using VP = vector<P>;
 
 #define rep(i, n)     for(ll i=0;i<(ll)(n);i++)
 #define rep2(i, m, n) for(ll i=m;i<(ll)(n);i++)
@@ -39,11 +40,35 @@ int gcd(ll m, ll n);
 bool dfs(int i, int j);
 void bfs();
 
+bool compare(pair<double, long long> a, pair<double, long long> b) {
+  if(a.first != b.first){ return a.first > b.first; }
+  if(a.second != b.second){return a.second > b.second;}
+  return true;
+}
+
+void vp_sort(VP& vp, bool asc) {
+  sort(vp.begin(), vp.end(), compare);
+  if(asc) reverse(vp.begin(), vp.end());
+}
+
 // =================================
 // Main Logic
 // =================================
 void solve() {
-  int ans = 0;
+  string ans = "Yes";
+  int n;
+  cin >> n;
+  VP vp(n, make_pair(0, 0));
+
+  rep(i,n) cin >> vp[i].second >> vp[i].first;
+  vp_sort(vp, true);
+
+  ll cnt = 0;
+  rep(i,n) {
+    cnt += vp[i].second;
+    if (vp[i].first < cnt) ans = "No";
+    //debug("-"); debug(cnt); debug(vp[i].first); debug(vp[i].second);
+  }
   cout << ans << endl;
 }
 // =================================

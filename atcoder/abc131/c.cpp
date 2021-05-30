@@ -35,15 +35,32 @@ int d[505][505];
 const int di[] = {-1,0,1,0}, dj[] = {0,-1,0,1};
 
 void sample_solve();
-int gcd(ll m, ll n);
 bool dfs(int i, int j);
 void bfs();
+ll gcd(ll m, ll n);
+ll lcm(ll x, ll y);
 
 // =================================
 // Main Logic
 // =================================
 void solve() {
-  int ans = 0;
+  ll ans = 0;
+  ll a, b, c, d;
+  cin >> a >> b >> c >> d;
+  // cの倍数の数
+  ll b_c = b/c;
+  ll a_c = a/c;
+  if (a_c != 0 && a%c == 0) --a_c;
+  ll b_d = b/d;
+  ll a_d = a/d;
+  if (a_d != 0 && a%d == 0) --a_d;
+  ll lcmcd = lcm(c, d);
+  ll b_cd = b/lcmcd;
+  ll a_cd = a/lcmcd;
+  if (a_cd != 0 && a%lcmcd == 0) --a_cd;
+
+  ans = (b-a+1) - ((b_c-a_c)+(b_d-a_d)-(b_cd-a_cd));
+  //debug(b_c); debug(a_c); debug(b_d); debug(a_d); debug(b_cd); debug(a_cd);
   cout << ans << endl;
 }
 // =================================
@@ -69,9 +86,15 @@ bool comp(TUPLE lhs, TUPLE rhs) {
   }
 }
 
-int gcd(ll m, ll n) {
+// 最大公約数
+ll gcd(ll m, ll n) {
   if (n == 0) return m;
   return gcd(n, m%n);
+}
+
+// 最小公倍数
+ll lcm(ll x, ll y) {
+    return x / gcd(x, y) * y;//先に割り算をして掛けられる数を小さくして掛け算を行う
 }
 
   /*
