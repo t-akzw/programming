@@ -47,8 +47,28 @@ void vp_sort(VP& vp, bool asc);
 // Main Logic
 // =================================
 void solve() {
-  int ans = 0;
-  cout << ans << endl;
+  int n;
+  cin >> n;
+  vector<int> ans(n);
+  vector<int> a(n);
+  rep(i,n) cin >> a[i];
+  ll sum = 0;
+  ll oddsum = 0;
+  rep(i,n) sum += a[i];
+  rep(i,n) if (i%2==1) oddsum += a[i];
+  vector<int> x(n);
+  x[0] = sum/2 - oddsum;
+  rep2(i,1,n) {
+    x[i] = a[i-1]-x[i-1];
+  }
+  rep(i,n) {
+    if (i!=n-1) {
+      cout << 2*x[i] << " ";
+    } else {
+      cout << 2*x[i] << endl;
+    }
+  }
+
 }
 // =================================
 
