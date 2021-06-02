@@ -4,6 +4,7 @@ using namespace std;
 
 using ll = long long;
 using P = pair<ll, ll>;
+using S = set<ll>;
 using V = vector<ll>;
 using VV = vector<V>;
 using M = map<ll, ll>;
@@ -28,6 +29,24 @@ template<typename T> void view(T e){std::cout << e << std::endl;}
 template<typename T> void view(const std::vector<T>& v){for(const auto& e : v){ std::cout << e << " "; } std::cout << std::endl;}
 template<typename T> void view(const std::vector<std::vector<T> >& vv){ for(const auto& v : vv){ view(v); } }
 
+S prime_factorize(ll n) {
+  set<ll> res;
+  res.insert(n);
+  for (ll a = 2; a*a <= n; ++a) {
+    if (n%a != 0) continue;
+    ll ex = 0; // 指数
+    res.insert(a);
+    while (n%a == 0) {
+      ++ex;
+      n /= a;
+      res.insert(n);
+    }
+  }
+  res.insert(n);
+  res.insert(1);
+  return res;
+}
+
 // for dfs
 string s[505];
 bool used[505][505];
@@ -47,8 +66,32 @@ void vp_sort(VP& vp, bool asc);
 // Main Logic
 // =================================
 void solve() {
-  int ans = 0;
-  cout << ans << endl;
+  int n;
+  cin >> n;
+  V a(n+1);
+  M m;
+  rep2(i,1,n+1) cin >> a[i];
+  rrep(i,n,1) {
+    S v = prime_factorize(i);
+    for(auto c : v) m[c] += a[i];
+  }
+  rep(i,n+1) m[i] %= 2;
+  //rep(i,n+1) { debug(i);debug(m[i]);debug(a[i]);}
+  V ans;
+  rep2(i,1,n+1) if(m[i]==1) ans.push_back(i);
+  if (ans.size() == 0) {
+    cout << 0 << endl;
+    return;
+  } else {
+    cout << ans.size() << endl; 
+  }
+  rep(i,ans.size()) {
+    if (i==ans.size()-1) {
+      cout << ans[i] << endl;      
+    } else {
+      cout << ans[i] << " ";
+    }
+  }
 }
 // =================================
 
