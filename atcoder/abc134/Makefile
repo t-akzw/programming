@@ -9,6 +9,8 @@ c:
 	$(CC) -o c.out $(CFLAGS) c.cpp
 d: 
 	$(CC) -o d.out $(CFLAGS) d.cpp 
+dd: 
+	$(CC) -o dd.out $(CFLAGS) dd.cpp 
 e:
 	$(CC) -o e.out $(CFLAGS) e.cpp
 f: 
@@ -35,6 +37,8 @@ exc:
 	./exec.sh c
 exd:
 	./exec.sh d
+exdd:
+	./exec.sh dd
 exe:
 	./exec.sh e
 exf:

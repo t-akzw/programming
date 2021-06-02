@@ -69,16 +69,27 @@ void solve() {
   int n;
   cin >> n;
   V a(n+1);
+  V ans;
   M m;
   rep2(i,1,n+1) cin >> a[i];
   rrep(i,n,1) {
     S v = prime_factorize(i);
-    for(auto c : v) m[c] += a[i];
+    //debug(i);
+    //debug(m[i]);debug(a[i]);
+    if (a[i]) {
+      if (!m[i]) {
+        for(auto c : v) m[c] ^= a[i];
+        ans.push_back(i);
+      } 
+    } else {
+      if (m[i]) {
+        for(auto c : v) m[c] ^= a[i]; 
+        ans.push_back(i);
+      }
+    }
   }
-  rep(i,n+1) m[i] %= 2;
   //rep(i,n+1) { debug(i);debug(m[i]);debug(a[i]);}
-  V ans;
-  rep2(i,1,n+1) if(m[i]==1) ans.push_back(i);
+  //rep2(i,1,n+1) if(m[i]==1) ans.push_back(i);
   if (ans.size() == 0) {
     cout << 0 << endl;
     return;
