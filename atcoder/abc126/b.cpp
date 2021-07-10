@@ -1,0 +1,335 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+using ll = long long;
+using P = pair<ll, ll>;
+using V = vector<ll>;
+using VV = vector<V>;
+using M = map<ll, ll>;
+using Q = queue<ll>;
+using PQ = priority_queue<ll>;
+using ST = stack<ll>;
+using Graph = vector< vector<ll> >;
+
+#define rep(i, n)     for(ll i=0;i<(ll)(n);i++)
+#define rep2(i, m, n) for(ll i=m;i<(ll)(n);i++)
+#define rrep(i, n, m) for(ll i=n;i>=(ll)(m);i--)
+#define rbfor(v, vec) for(auto const& v : vec)
+#define debug(var)  do{std::cout << #var << " : ";view(var);}while(0)
+
+const ll MOD = 1000000007;
+const ll INF = 1000000000000000000L;
+const int INFI = 1000000000;
+template<typename T> bool chmax(T &a, const T &b) {if (a < b){a = b;return true;}else{return false;}}
+template<typename T> bool chmin(T &a, const T &b) {if (a > b){a = b;return true;}else{return false;}}
+template<typename T> void view(T e){std::cout << e << std::endl;}
+template<typename T> void view(const std::vector<T>& v){for(const auto& e : v){ std::cout << e << " "; } std::cout << std::endl;}
+template<typename T> void view(const std::vector<std::vector<T> >& vv){ for(const auto& v : vv){ view(v); } }
+
+// for dfs
+string s[505];
+bool used[505][505];
+int d[505][505];
+
+const int di[] = {-1,0,1,0}, dj[] = {0,-1,0,1};
+
+void sample_solve();
+int gcd(ll m, ll n);
+bool dfs(int i, int j);
+void bfs();
+
+bool is_month(string s) {
+  int i = stoi(s);
+  bool rtn = false;
+  if (0 < i && i < 13) rtn = true;
+  return rtn;
+}
+
+bool is_year(string s) {
+  int i = stoi(s);
+  bool rtn = false;
+  if (0 <= i && i <= 99) rtn = true;
+  return rtn;
+}
+
+// =================================
+// Main Logic
+// =================================
+void solve() {
+  // for dfs
+  //   rep(i,h) cin >> s[i];
+  //   rep(i,h)rep(j,w) if(s[i][j]=='s') res = dfs(i,j);
+  // for bfs
+  //   rep(i, r) rep(j, c) used[i][j] = -1000;
+  //   d[sx][sy] = 0;
+  //   q.push(make_pair(sx, sy));
+  //   while (!q.empty()) bfs();
+
+  // normal
+  // int a, b;
+  // cin >> a >> b;
+  string s;
+  string ans;
+  cin >> s;
+
+  bool hm = is_month(s.substr(0, 2));
+  bool hy = is_year(s.substr(0, 2));
+  bool lm = is_month(s.substr(2, 2));
+  bool ly = is_year(s.substr(2, 2));
+
+  //debug(hm); debug(hy); debug(lm); debug(ly);
+
+  if (hm && hy && lm && ly) {
+    ans = "AMBIGUOUS";
+  } else if (!hm && hy && lm) {
+    ans = "YYMM";
+  } else if (hm && !hy && ly) {
+    ans = "MMYY";
+  } else if (hm && hy && !lm && ly) {
+    ans = "MMYY";
+  } else if (hm && hy && lm && !ly) {
+    ans = "YYMM";
+  } else {
+    ans = "NA";
+  }
+  cout << ans << endl;
+}
+// =================================
+
+int main() {
+  std::cin.tie(nullptr);
+  std::ios_base::sync_with_stdio(false);
+  std::cout << std::fixed << std::setprecision(15);
+  solve();
+  // sample_solve();
+  return 0;
+}
+
+/*
+bool dfs(int i, int j) {
+  if (used[i][j]) return false;
+  used[i][j] = true;
+  if (s[i][j] == '#') return false;
+  if (s[i][j] == 'g') return true;
+  bool res = false;
+  rep(v,4) {
+    int ni = i+di[v], nj = j+dj[v];
+    if (ni<0||nj<0||ni>=h||nj>=w) continue;
+    res |= dfs(ni,nj);
+  }
+  return res;
+};
+
+void bfs() {
+  pair<int, int> f = q.front();
+  q.pop();
+  int x = f.first;
+  int y = f.second;
+
+  rep(v, 4) {
+    int ni = x+di[v], nj = y+dj[v];
+    if (ni<0||nj<0||ni>=r||nj>=c) continue;
+    if (s[ni][nj] == '#') continue;
+    if (d[ni][nj] != INFI) continue;
+    d[ni][nj] = d[x][y] + 1;
+    q.push(make_pair(ni, nj));
+  }
+};
+*/
+
+// ---------------
+// https://atcoder.jp/contests/apg4b/tasks_print
+// ---------------
+
+typedef tuple<string, int ,int> TUPLE;
+bool comp(TUPLE lhs, TUPLE rhs) {
+  if (get<0>(lhs) == get<0>(rhs)) {
+    return get<1>(lhs) > get<1>(rhs);
+  } else {
+    return get<0>(lhs) < get<0>(rhs);
+  }
+}
+
+void sample_solve() {
+  // basic usage
+  V vi(3, 1);
+  rbfor(v, vi) cout << v << endl;
+
+  cout << "-- at" << endl;
+  vi.at(1) = 3;
+  cout << vi.at(1) << endl;
+
+  cout << "-- pop_back" << endl;
+  vi.pop_back();
+  rbfor(v, vi) cout << v << endl;
+
+  cout << "-- reverse" << endl;
+  reverse(vi.begin(), vi.end());
+  rbfor(v, vi) cout << v << endl;
+
+  cout << "-- sort" << endl;
+  sort(vi.begin(), vi.end());
+  rbfor(v, vi) cout << v << endl;
+
+  //insert: a.insert(a.end(), tmp.begin(), tmp.end()); vectorの結合
+
+  cout << "-- graph" << endl;
+  Graph g(3, vector<ll>(4, 10));
+  g.at(2).at(2) = 1;
+  cout << g.at(2).at(2) << endl;
+  cout << g.at(0).at(0) << endl;
+
+  int x = 12345;
+  double pi = 3.14159265358979;
+  printf("x = %d, pi = %lf\n", x, pi);
+  // int: %d, int64_t: %ld, double: %lf. char: %c
+
+  string s = to_string(x);
+  cout << s + "yen" << endl;
+
+  int n = stoi(s);
+  cout << n << endl;
+  // str2int: stoi, str2int64_t: stoll, str2double: stod
+  
+  cout << "-- pair" << endl;
+  P p(1, 10);
+  cout << p.first << ": " << p.second << endl;
+  ll a, b;
+  tie(a, b) = p;
+  cout << a << ": " << b << endl;
+
+  cout << "-- tuple" << endl;
+  tuple<ll, ll, ll> t(1, 10, 100);
+  cout << get<1>(t) << endl; // 10
+  ll c;
+  tie(a, ignore, c) = t;
+  cout << a << "," << "," << c << endl;
+
+  cout << "-- map" << endl;
+  M m;
+  m[11] = 111;
+  m[22] = 222;
+  m[33] = 333;
+  m.erase(33);
+  cout << "11: " << m.at(11) << ", count:" << m.count(33) << endl;
+
+  cout << "-- queue" << endl;
+  Q q;
+  q.push(1000);
+  cout << q.front() << endl;
+  q.push(2);
+  q.pop();
+  bool is_empty = q.empty();
+  cout << q.size() << ", " << is_empty << endl;
+
+  cout << "-- priority_queue" << endl;
+  PQ pq;
+  pq.push(1000);
+  pq.push(2);
+  pq.push(8);
+  pq.push(100);
+  ll top1 = pq.top();
+  pq.pop();
+  ll top2 = pq.top();
+  cout << top1 << ", " << top2 << ", size: " << pq.size() << endl;
+
+  cout << "-- stack" << endl;
+  ST st;
+  st.push(10);
+  st.push(1);
+  st.push(3);
+  cout << st.top() << endl;
+  st.pop();
+  cout << st.top() << endl;
+
+  cout << "-- struct" << endl;
+  struct MyPair {
+    int x;
+    string y;
+    MyPair(int a, string b) {
+      cout << "constructor called" << endl;
+      x = a;
+      y = b;
+    }
+    void print() {
+      cout << "x = " << x << endl;
+      cout << "y = " << y << endl;
+    }
+  };
+  MyPair mpa = {11, "hoge"};
+  mpa.print();
+
+  cout << "-- bitset" << endl;
+  bitset<8> bsa("00011011");
+  bitset<8> bsb("00110101");
+  auto bsc = bsa & bsb;
+  cout << "1: " << bsc << endl;         // 1: 00010001
+  cout << "2: " << (bsc << 1) << endl;  // 2: 00100010
+  auto bsd = bsa ^ bsb;
+  cout << bsd << endl;
+  bsd.set(0, 1);
+  cout << bsd << endl;
+  auto is_one = bsd.test(0);
+  cout << is_one << endl;
+  bitset<4> bsx(4);
+  cout << bsx << endl;
+  // .reset: 全ビット0に
+  // .set: 全ビット1に
+  // .flip: 全ビット反転
+  // .all: 全ビット1かどうか
+  // .any: 1があるかどうか
+  // .to_string, to_ullong
+  // .[位置]: 位置にアクセス
+
+  cout << "-- lambda" << endl;
+  // 最大値を保持する変数
+  int max_num = 0;
+ 
+  // 今まで受け取った値の中から最も大きな値を返す関数
+  auto update_max = [&](int n) {
+    if (max_num < n) {
+      max_num = n;
+    }
+    return max_num;
+  };
+  cout << update_max(5) << endl;
+  cout << update_max(2) << endl;
+
+  // 比較関数の例: tuple 0で辞書順ソート、1で降順ソート
+  cout << "-- comp of tuple" << endl;
+  vector<TUPLE> vt;
+  vt.push_back(make_tuple("khabarovsk", 20, 1));
+  vt.push_back(make_tuple("moscow", 10, 2));
+  vt.push_back(make_tuple("kazan", 50, 3));
+  vt.push_back(make_tuple("kazan", 35, 4));
+  vt.push_back(make_tuple("moscow", 60, 5));
+  vt.push_back(make_tuple("khabarovsk", 40, 6));
+  sort(vt.begin(), vt.end(), comp);
+
+  rep(i, 6) cout << get<0>(vt.at(i)) << ":" << get<1>(vt.at(i)) << ":" << get<2>(vt.at(i)) << endl;
+
+  // lib sample
+  cout << "-- mylib: gcd" << endl;
+  cout << gcd(51, 15) << endl;
+  cout << gcd(15, 51) << endl;
+
+  // to_**
+  cout << to_string(123) << endl;
+}
+
+// -- info
+// int: 最小値：-2147483648, 最大値：2147483647
+
+// -- stl
+// find(iter1, iter2, num)
+// lower_bound(iter1, iter2, num): イテレータの範囲内から指定した値以上の最小の要素を探す
+// upper_bound(iter1, iter2, num): イテレータの範囲内から指定した値より大きな最小の要素を探す
+
+// mylibs
+
+
+int gcd(ll m, ll n) {
+  if (n == 0) return m;
+  return gcd(n, m%n);
+}

@@ -17,6 +17,11 @@ using Graph = vector< vector<ll> >;
 #define rrep(i, n, m) for(ll i=n;i>=(ll)(m);i--)
 #define rbfor(v, vec) for(auto const& v : vec)
 
+#define debug(var)  do{std::cout << #var << " : ";view(var);}while(0)
+template<typename T> void view(T e){std::cout << e << std::endl;}
+template<typename T> void view(const std::vector<T>& v){for(const auto& e : v){ std::cout << e << " "; } std::cout << std::endl;}
+template<typename T> void view(const std::vector<std::vector<T> >& vv){ for(const auto& v : vv){ view(v); } }
+
 const ll MOD = 1000000007;
 const ll INF = 1000000000000000000L;
 const int INFI = 1000000000;
@@ -51,7 +56,22 @@ void solve() {
   // normal
   // int a, b;
   // cin >> a >> b;
-
+  int n;
+  double D, H;
+  double d, h;
+  double maxx = 0;
+  double useh=0, used=0;
+  double ans = 0.0;
+  cin >> n >> D >> H;
+  rep(i, n) {
+    cin >> d >> h;
+    if (ans < (D*h - d*H)/(D-d)) {
+      ans = (D*h - d*H)/(D-d);
+    }
+  }
+  //debug(ans);
+  if (ans < 0) ans = 0.0;
+  cout << ans << endl;
 }
 // =================================
 

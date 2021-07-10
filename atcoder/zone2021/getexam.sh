@@ -8,8 +8,8 @@ AUTOMATION_PATH='../automation'
 
 mv ${AUTOMATION_PATH}/app/*_example_*.txt .
 
-for i in $(ls -1 *_example_*.txt)
-do
-  name=$(echo $i |sed "s/example_\(\[0-9\]\)/example_${2}_\1/g")
-  mv $i $name
-done
+#for i in $(ls -1 *_example_*.txt)
+#do
+#  name=$(echo $i |sed "s/example_\(\[0-9\]\)/example_${2}_\1/g")
+#  mv $i $name
+#done
